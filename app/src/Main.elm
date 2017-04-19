@@ -99,17 +99,23 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     Html.div []
-        [ viewControls model
-        , viewSandpile model
+        [ --viewControls model
+        viewSandpile model
         ]
 
 
 viewSandpile model =
-    scene [] <|
-        [ camera [ position 12 12 12 ] []
-        , sky [ color skyColor ] []
-        ]
-        ++ List.map (viewCell model) (Sandpile.allCoordinates model.sandpile)
+    let
+        cells =
+            List.map (viewCell model) (Sandpile.allCoordinates model.sandpile)
+    in
+        scene
+            [ vrModeUi False ]
+            ( cells ++
+                [ camera [ position 12 12 12 ] []
+                , sky [ color skyColor ] []
+                ]
+            )
 
 
 skyColor =
