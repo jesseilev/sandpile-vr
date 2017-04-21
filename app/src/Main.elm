@@ -1,4 +1,4 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Html exposing (..)
 import Html.Events as Events
@@ -17,6 +17,10 @@ import Coordinates2 as Coord2
 import Coordinates3 as Coord3 exposing (Coordinates)
 import Lattice2
 import Lattice3
+
+
+-- port for telling Aframe to enter fullscreen VR mode
+port enterVr : () ->  Cmd msgType
 
 
 type alias Model =
@@ -39,7 +43,7 @@ init =
             ( Coord3.allCoordsInRange -4 4 -4 4 -4 4
                 |> List.map
                     (\((x,y,z) as coord) ->
-                        (coord, (x+y+z) % 6)
+                        (coord, (x+y+z) % 1)
                     )
             )
             |> Sandpile.add 1 (Coord3.coordinates 0 0 0)
@@ -57,7 +61,7 @@ type Msg
     | ToppleStep
     | ToppleSettle
     | TogglePlayback
-    | Click
+    | ClickEnterVr
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -77,8 +81,8 @@ update msg model =
         TogglePlayback ->
             { model | playback = if model.playback == Play then Pause else Play } ! []
 
-        Click ->
-            { model | clicks = model.clicks + 1 } ! []
+        ClickEnterVr ->
+            (model, enterVr ())
 
 
 updateSandpile updateS model =
@@ -99,9 +103,13 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     Html.div []
-        [ --viewControls model
-        viewSandpile model
+        [ viewControls model
+        , viewSandpile model
         ]
+    -- Html.div []
+    --     [ --viewControls model
+    --     viewSandpile model
+    --     ]
 
 
 viewSandpile model =
@@ -182,7 +190,7 @@ viewControls model =
             (model.playback == Play || Sandpile.isStable model.sandpile)
         , viewButton "Settle" ToppleSettle
             (model.playback == Play || Sandpile.isStable model.sandpile)
-        , viewButton "Click!" Click False
+        , viewButton "Enter VR!" ClickEnterVr False
         ]
 
 
