@@ -2,11 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Elm AFrame</title>
+    <title>Sandpile VR</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
     <script src="aframe.min.js"></script>
     <script src="aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/IdeaSpaceVR/aframe-ui-modal-component/master/dist/aframe-ui-modal-component.min.js"></script>
 </head>
 <body>
+
+    <!-- <script>
+        var Elm = require( './Main' );
+        console.log("_________________");
+        console.log(Elm);
+        Elm.ports.enterVr.subscribe(function () {
+            console.log("you clicked Enter VR!");
+
+            var scene = document.querySelector('a-scene');
+            if (scene.hasLoaded) {
+               scene.enterVR();
+            } else {
+               scene.addEventListener('loaded', function () {
+                   setTimeout(function () {
+                       scene.enterVR();
+                   }, 1000);
+               });
+            };
+        });
+    </script> -->
 </body>
 </html>

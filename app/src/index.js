@@ -15,3 +15,5 @@ Elm.ports.enterVr.subscribe(function () {
        });
     };
 });
+
+console.log("hello!");
