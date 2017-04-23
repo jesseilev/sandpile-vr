@@ -1,0 +1,525 @@
+var _user$project$Main$opacityFromGrainCount = F2(
+	function (neighborCount, grainCount) {
+		return (_elm_lang$core$Basics$toFloat(grainCount) + 1) / (_elm_lang$core$Basics$toFloat(neighborCount) + 1);
+	});
+var _user$project$Main$colorFromGrainCount = function (grainCount) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		_elm_lang$core$Color$white,
+		A2(
+			_elm_community$list_extra$List_Extra$getAt,
+			grainCount,
+			_elm_lang$core$List$reverse(
+				{
+					ctor: '::',
+					_0: _elm_lang$core$Color$white,
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Color$yellow,
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Color$orange,
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Color$red,
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$core$Color$purple,
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Color$blue,
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$core$Color$darkCharcoal,
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				})));
+};
+var _user$project$Main$sphereRadius = 1;
+var _user$project$Main$sphereSpacing = 20;
+var _user$project$Main$toSphereCoords = function (_p0) {
+	var _p1 = _p0;
+	var scaleVal = function (v) {
+		return ((_elm_lang$core$Basics$toFloat(v) * _user$project$Main$sphereRadius) * _user$project$Main$sphereSpacing) / 2;
+	};
+	return {
+		ctor: '_Tuple3',
+		_0: scaleVal(_p1._0),
+		_1: scaleVal(_p1._1),
+		_2: scaleVal(_p1._2)
+	};
+};
+var _user$project$Main$skyColor = _elm_lang$core$Color$greyscale(0.75);
+var _user$project$Main$viewButton = F3(
+	function (text, onClickMsg, isDisabled) {
+		return A2(
+			_elm_lang$html$Html$button,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(onClickMsg),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$disabled(isDisabled),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(text),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$Main$viewCamera = function (model) {
+	return A2(
+		_halfzebra$elm_aframe$AFrame_Primitives_Camera$camera,
+		{
+			ctor: '::',
+			_0: A3(_halfzebra$elm_aframe$AFrame_Primitives_Attributes$position, 12, 12, 12),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_halfzebra$elm_aframe$AFrame_Primitives_Cursor$cursor,
+				{
+					ctor: '::',
+					_0: _halfzebra$elm_aframe$AFrame_Primitives_Cursor$fuse(true),
+					_1: {
+						ctor: '::',
+						_0: A3(_halfzebra$elm_aframe$AFrame_Primitives_Attributes$position, 0, 0, -1),
+						_1: {
+							ctor: '::',
+							_0: A2(_elm_lang$html$Html_Attributes$attribute, 'max-distance', '2'),
+							_1: {
+								ctor: '::',
+								_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$color(_elm_lang$core$Color$white),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_halfzebra$elm_aframe$AFrame_Animations$animation,
+						{
+							ctor: '::',
+							_0: A2(_elm_lang$html$Html_Attributes$attribute, 'begin', 'cursor-fusing'),
+							_1: {
+								ctor: '::',
+								_0: _halfzebra$elm_aframe$AFrame_Animations$attribute_('scale'),
+								_1: {
+									ctor: '::',
+									_0: _halfzebra$elm_aframe$AFrame_Animations$from('1 1 1'),
+									_1: {
+										ctor: '::',
+										_0: _halfzebra$elm_aframe$AFrame_Animations$to('0 0 0'),
+										_1: {
+											ctor: '::',
+											_0: _halfzebra$elm_aframe$AFrame_Animations$dur(1500),
+											_1: {
+												ctor: '::',
+												_0: _halfzebra$elm_aframe$AFrame_Animations$fill('both'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_halfzebra$elm_aframe$AFrame_Animations$animation,
+							{
+								ctor: '::',
+								_0: A2(_elm_lang$html$Html_Attributes$attribute, 'begin', 'click'),
+								_1: {
+									ctor: '::',
+									_0: _halfzebra$elm_aframe$AFrame_Animations$attribute_('scale'),
+									_1: {
+										ctor: '::',
+										_0: _halfzebra$elm_aframe$AFrame_Animations$from('0 0 0'),
+										_1: {
+											ctor: '::',
+											_0: _halfzebra$elm_aframe$AFrame_Animations$to('4 4 4'),
+											_1: {
+												ctor: '::',
+												_0: _halfzebra$elm_aframe$AFrame_Animations$dur(250),
+												_1: {
+													ctor: '::',
+													_0: _halfzebra$elm_aframe$AFrame_Animations$fill('none'),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$viewMenu = function (model) {
+	var _p2 = model.menuLocation;
+	if (_p2.ctor === 'Nothing') {
+		return A2(
+			_halfzebra$elm_aframe$AFrame$entity,
+			{ctor: '[]'},
+			{ctor: '[]'});
+	} else {
+		var _p3 = _user$project$Main$toSphereCoords(_p2._0);
+		var x = _p3._0;
+		var y = _p3._1;
+		var z = _p3._2;
+		return A2(
+			_halfzebra$elm_aframe$AFrame_Primitives$plane,
+			{
+				ctor: '::',
+				_0: A3(_halfzebra$elm_aframe$AFrame_Primitives_Attributes$position, x, y, z),
+				_1: {
+					ctor: '::',
+					_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$width(1),
+					_1: {
+						ctor: '::',
+						_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$height(1),
+						_1: {
+							ctor: '::',
+							_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$color(_elm_lang$core$Color$yellow),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			{ctor: '[]'});
+	}
+};
+var _user$project$Main$updateSandpile = F2(
+	function (updateS, model) {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				sandpile: updateS(model.sandpile)
+			});
+	});
+var _user$project$Main$enterVr = _elm_lang$core$Native_Platform.outgoingPort(
+	'enterVr',
+	function (v) {
+		return null;
+	});
+var _user$project$Main$Model = F4(
+	function (a, b, c, d) {
+		return {sandpile: a, playback: b, dripLocations: c, menuLocation: d};
+	});
+var _user$project$Main$Pause = {ctor: 'Pause'};
+var _user$project$Main$init = A2(
+	_elm_lang$core$Platform_Cmd_ops['!'],
+	{
+		sandpile: A3(
+			_user$project$Sandpile$add,
+			1,
+			A3(_user$project$Coordinates3$coordinates, 0, 0, 0),
+			A2(
+				_user$project$Sandpile$fromList,
+				_user$project$Lattice3$space,
+				A2(
+					_elm_lang$core$List$map,
+					function (_p4) {
+						var _p5 = _p4;
+						return {
+							ctor: '_Tuple2',
+							_0: _p5,
+							_1: A2(_elm_lang$core$Basics_ops['%'], (_p5._0 + _p5._1) + _p5._2, 1)
+						};
+					},
+					A6(_user$project$Coordinates3$allCoordsInRange, -4, 4, -4, 4, -4, 4)))),
+		playback: _user$project$Main$Pause,
+		dripLocations: {
+			ctor: '::',
+			_0: A3(_user$project$Coordinates3$coordinates, 0, 0, 0),
+			_1: {ctor: '[]'}
+		},
+		menuLocation: _elm_lang$core$Maybe$Nothing
+	},
+	{ctor: '[]'});
+var _user$project$Main$Play = {ctor: 'Play'};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p6 = msg;
+		switch (_p6.ctor) {
+			case 'DropGrain':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					A2(
+						_user$project$Main$updateSandpile,
+						A2(
+							_user$project$Sandpile$changeMany,
+							_user$project$Sandpile$add(1),
+							model.dripLocations),
+						model),
+					{ctor: '[]'});
+			case 'ToppleStep':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					A2(_user$project$Main$updateSandpile, _user$project$Sandpile$toppleStep, model),
+					{ctor: '[]'});
+			case 'ToppleSettle':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					A2(_user$project$Main$updateSandpile, _user$project$Sandpile$toppleSettle, model),
+					{ctor: '[]'});
+			case 'TogglePlayback':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							playback: _elm_lang$core$Native_Utils.eq(model.playback, _user$project$Main$Pause) ? _user$project$Main$Play : _user$project$Main$Pause
+						}),
+					{ctor: '[]'});
+			case 'ClickEnterVr':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _user$project$Main$enterVr(
+						{ctor: '_Tuple0'})
+				};
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							menuLocation: _elm_lang$core$Maybe$Just(_p6._0)
+						}),
+					{ctor: '[]'});
+		}
+	});
+var _user$project$Main$ClickCell = function (a) {
+	return {ctor: 'ClickCell', _0: a};
+};
+var _user$project$Main$viewCell = F2(
+	function (model, coordinates) {
+		var wire = function (rotationAttr) {
+			return A2(
+				_halfzebra$elm_aframe$AFrame_Primitives$cylinder,
+				{
+					ctor: '::',
+					_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$radius(5.0e-2),
+					_1: {
+						ctor: '::',
+						_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$height(_user$project$Main$sphereSpacing),
+						_1: {
+							ctor: '::',
+							_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$color(_elm_lang$core$Color$grey),
+							_1: {
+								ctor: '::',
+								_0: rotationAttr,
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{ctor: '[]'});
+		};
+		var _p7 = _user$project$Main$toSphereCoords(coordinates);
+		var x = _p7._0;
+		var y = _p7._1;
+		var z = _p7._2;
+		var grainCount = A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			A2(_user$project$Sandpile$get, coordinates, model.sandpile));
+		return A2(
+			_halfzebra$elm_aframe$AFrame_Primitives$sphere,
+			{
+				ctor: '::',
+				_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$radius(_user$project$Main$sphereRadius),
+				_1: {
+					ctor: '::',
+					_0: A3(_halfzebra$elm_aframe$AFrame_Primitives_Attributes$position, x, y, z),
+					_1: {
+						ctor: '::',
+						_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$color(
+							_user$project$Main$colorFromGrainCount(grainCount)),
+						_1: {
+							ctor: '::',
+							_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$opacity(
+								A2(_user$project$Main$opacityFromGrainCount, model.sandpile.lattice.neighborCount, grainCount)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									_user$project$Main$ClickCell(coordinates)),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			},
+			{ctor: '[]'});
+	});
+var _user$project$Main$viewSandpile = function (model) {
+	var cells = A2(
+		_elm_lang$core$List$map,
+		_user$project$Main$viewCell(model),
+		_user$project$Sandpile$allCoordinates(model.sandpile));
+	return A2(
+		_halfzebra$elm_aframe$AFrame$scene,
+		{
+			ctor: '::',
+			_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$vrModeUi(false),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			cells,
+			{
+				ctor: '::',
+				_0: _user$project$Main$viewCamera(model),
+				_1: {
+					ctor: '::',
+					_0: _user$project$Main$viewMenu(model),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_halfzebra$elm_aframe$AFrame_Primitives$sky,
+							{
+								ctor: '::',
+								_0: _halfzebra$elm_aframe$AFrame_Primitives_Attributes$color(_user$project$Main$skyColor),
+								_1: {ctor: '[]'}
+							},
+							{ctor: '[]'}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}));
+};
+var _user$project$Main$ClickEnterVr = {ctor: 'ClickEnterVr'};
+var _user$project$Main$TogglePlayback = {ctor: 'TogglePlayback'};
+var _user$project$Main$ToppleSettle = {ctor: 'ToppleSettle'};
+var _user$project$Main$ToppleStep = {ctor: 'ToppleStep'};
+var _user$project$Main$DropGrain = {ctor: 'DropGrain'};
+var _user$project$Main$subscriptions = function (model) {
+	var _p8 = {
+		ctor: '_Tuple2',
+		_0: model.playback,
+		_1: _user$project$Sandpile$isStable(model.sandpile)
+	};
+	_v4_2:
+	do {
+		if (_p8.ctor === '_Tuple2') {
+			if (_p8._1 === true) {
+				if (_p8._0.ctor === 'Play') {
+					return A2(
+						_elm_lang$core$Time$every,
+						250 * _elm_lang$core$Time$millisecond,
+						function (_p9) {
+							return _user$project$Main$DropGrain;
+						});
+				} else {
+					break _v4_2;
+				}
+			} else {
+				return A2(
+					_elm_lang$core$Time$every,
+					250 * _elm_lang$core$Time$millisecond,
+					function (_p10) {
+						return _user$project$Main$ToppleStep;
+					});
+			}
+		} else {
+			break _v4_2;
+		}
+	} while(false);
+	return _elm_lang$core$Platform_Sub$none;
+};
+var _user$project$Main$viewControls = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$button,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$TogglePlayback),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						_elm_lang$core$Native_Utils.eq(model.playback, _user$project$Main$Play) ? 'Pause' : 'Play'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A3(
+					_user$project$Main$viewButton,
+					'Drop',
+					_user$project$Main$DropGrain,
+					_elm_lang$core$Native_Utils.eq(model.playback, _user$project$Main$Play)),
+				_1: {
+					ctor: '::',
+					_0: A3(
+						_user$project$Main$viewButton,
+						'Step',
+						_user$project$Main$ToppleStep,
+						_elm_lang$core$Native_Utils.eq(model.playback, _user$project$Main$Play) || _user$project$Sandpile$isStable(model.sandpile)),
+					_1: {
+						ctor: '::',
+						_0: A3(
+							_user$project$Main$viewButton,
+							'Settle',
+							_user$project$Main$ToppleSettle,
+							_elm_lang$core$Native_Utils.eq(model.playback, _user$project$Main$Play) || _user$project$Sandpile$isStable(model.sandpile)),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$button,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$ClickEnterVr),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$id('enter-vr'),
+										_1: {ctor: '[]'}
+									}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Enter VR Mode'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		});
+};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _user$project$Main$viewControls(model),
+			_1: {
+				ctor: '::',
+				_0: _user$project$Main$viewSandpile(model),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{init: _user$project$Main$init, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions, update: _user$project$Main$update})();

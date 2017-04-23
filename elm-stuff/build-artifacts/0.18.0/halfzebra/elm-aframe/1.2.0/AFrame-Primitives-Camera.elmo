@@ -1,0 +1,33 @@
+var _halfzebra$elm_aframe$AFrame_Primitives_Camera$wasdControlsEnabled = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'wasd-controls-enabled',
+		_elm_lang$core$String$toLower(
+			_elm_lang$core$Basics$toString(value)));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Camera$near = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'near',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Camera$lookControlsEnabled = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'look-controls-enabled',
+		_elm_lang$core$String$toLower(
+			_elm_lang$core$Basics$toString(value)));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Camera$fov = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'fov',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Camera$far = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'far',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Camera$camera = _elm_lang$html$Html$node('a-camera');

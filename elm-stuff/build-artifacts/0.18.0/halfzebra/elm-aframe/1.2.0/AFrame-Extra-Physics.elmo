@@ -1,0 +1,4 @@
+var _halfzebra$elm_aframe$AFrame_Extra_Physics$kinematicBody = A2(_elm_lang$html$Html_Attributes$attribute, 'kinematic-body', '');
+var _halfzebra$elm_aframe$AFrame_Extra_Physics$staticBody = A2(_elm_lang$html$Html_Attributes$attribute, 'static-body', '');
+var _halfzebra$elm_aframe$AFrame_Extra_Physics$dynamicBody = A2(_elm_lang$html$Html_Attributes$attribute, 'dynamic-body', '');
+var _halfzebra$elm_aframe$AFrame_Extra_Physics$grid = _elm_lang$html$Html$node('a-grid');

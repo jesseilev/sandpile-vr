@@ -1,0 +1,124 @@
+var _user$project$Sandpile$changeMany = F3(
+	function (changeSandpile, locations, sandpile) {
+		return A3(_elm_lang$core$List$foldr, changeSandpile, sandpile, locations);
+	});
+var _user$project$Sandpile$set = F3(
+	function (n, coordinates, sandpile) {
+		return _elm_lang$core$Native_Utils.update(
+			sandpile,
+			{
+				cells: A3(_elm_lang$core$Dict$insert, coordinates, n, sandpile.cells)
+			});
+	});
+var _user$project$Sandpile$unstableCoordinates = function (sandpile) {
+	var isUnstable = F2(
+		function (_p0, numGrains) {
+			return _elm_lang$core$Native_Utils.cmp(numGrains, sandpile.lattice.neighborCount) > -1;
+		});
+	return _elm_lang$core$Dict$keys(
+		A2(_elm_lang$core$Dict$filter, isUnstable, sandpile.cells));
+};
+var _user$project$Sandpile$isStable = function (sandpile) {
+	return _elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$List$length(
+			_user$project$Sandpile$unstableCoordinates(sandpile)),
+		0);
+};
+var _user$project$Sandpile$get = function (coordinates) {
+	return function (_p1) {
+		return A2(
+			_elm_lang$core$Dict$get,
+			coordinates,
+			function (_) {
+				return _.cells;
+			}(_p1));
+	};
+};
+var _user$project$Sandpile$getOrZero = function (coordinates) {
+	return function (_p2) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			A2(_user$project$Sandpile$get, coordinates, _p2));
+	};
+};
+var _user$project$Sandpile$update = F3(
+	function (updateCell, coordinates, sandpile) {
+		var newGrainCount = updateCell(
+			A2(_user$project$Sandpile$getOrZero, coordinates, sandpile));
+		return A3(_user$project$Sandpile$set, newGrainCount, coordinates, sandpile);
+	});
+var _user$project$Sandpile$add = function (n) {
+	return _user$project$Sandpile$update(
+		F2(
+			function (x, y) {
+				return x + y;
+			})(n));
+};
+var _user$project$Sandpile$increment = _user$project$Sandpile$add(1);
+var _user$project$Sandpile$subtract = function (n) {
+	return _user$project$Sandpile$update(
+		A2(
+			_elm_lang$core$Basics$flip,
+			F2(
+				function (x, y) {
+					return x - y;
+				}),
+			n));
+};
+var _user$project$Sandpile$topple = F2(
+	function (coordinates, sandpile) {
+		return A3(
+			_user$project$Sandpile$subtract,
+			sandpile.lattice.neighborCount,
+			coordinates,
+			A3(
+				_elm_lang$core$List$foldr,
+				_user$project$Sandpile$increment,
+				sandpile,
+				sandpile.lattice.neighbors(coordinates)));
+	});
+var _user$project$Sandpile$toppleStep = function (sandpile) {
+	return A3(
+		_user$project$Sandpile$changeMany,
+		_user$project$Sandpile$topple,
+		_user$project$Sandpile$unstableCoordinates(sandpile),
+		sandpile);
+};
+var _user$project$Sandpile$toppleSettle = function (sandpile) {
+	toppleSettle:
+	while (true) {
+		if (_user$project$Sandpile$isStable(sandpile)) {
+			return sandpile;
+		} else {
+			var _v0 = _user$project$Sandpile$toppleStep(sandpile);
+			sandpile = _v0;
+			continue toppleSettle;
+		}
+	}
+};
+var _user$project$Sandpile$allCoordinates = function (_p3) {
+	return _elm_lang$core$Dict$keys(
+		function (_) {
+			return _.cells;
+		}(_p3));
+};
+var _user$project$Sandpile$Sandpile = F2(
+	function (a, b) {
+		return {lattice: a, cells: b};
+	});
+var _user$project$Sandpile$sandpile = _user$project$Sandpile$Sandpile;
+var _user$project$Sandpile$fromList = function (lattice) {
+	return function (_p4) {
+		return A2(
+			_user$project$Sandpile$sandpile,
+			lattice,
+			_elm_lang$core$Dict$fromList(_p4));
+	};
+};
+var _user$project$Sandpile$empty = function (lattice) {
+	return A2(
+		_user$project$Sandpile$fromList,
+		lattice,
+		{ctor: '[]'});
+};

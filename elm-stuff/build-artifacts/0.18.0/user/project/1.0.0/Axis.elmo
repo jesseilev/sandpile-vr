@@ -1,0 +1,75 @@
+var _user$project$Axis$makeValidHard = F2(
+	function (axis, n) {
+		var _p0 = axis;
+		switch (_p0.ctor) {
+			case 'Infinite':
+				return n;
+			case 'Wrap':
+				return A2(_elm_lang$core$Basics_ops['%'], n, _p0._0);
+			default:
+				return A3(_elm_lang$core$Basics$clamp, 0, _p0._0 - 1, n);
+		}
+	});
+var _user$project$Axis$isValid = F2(
+	function (axis, n) {
+		return _elm_lang$core$Native_Utils.eq(
+			A2(_user$project$Axis$makeValidHard, axis, n),
+			n);
+	});
+var _user$project$Axis$canBeMadeValid = F2(
+	function (axis, n) {
+		var _p1 = axis;
+		if (_p1.ctor === 'Bounded') {
+			return A2(_user$project$Axis$isValid, axis, n);
+		} else {
+			return true;
+		}
+	});
+var _user$project$Axis$makeValidSoft = F2(
+	function (axis, n) {
+		return A2(_user$project$Axis$canBeMadeValid, axis, n) ? _elm_lang$core$Maybe$Just(
+			A2(_user$project$Axis$makeValidHard, axis, n)) : _elm_lang$core$Maybe$Nothing;
+	});
+var _user$project$Axis$next = function (axis) {
+	return function (_p2) {
+		return A2(
+			_user$project$Axis$makeValidSoft,
+			axis,
+			A2(
+				F2(
+					function (x, y) {
+						return x + y;
+					}),
+				1,
+				_p2));
+	};
+};
+var _user$project$Axis$previous = function (axis) {
+	return function (_p3) {
+		return A2(
+			_user$project$Axis$makeValidSoft,
+			axis,
+			A3(
+				_elm_lang$core$Basics$flip,
+				F2(
+					function (x, y) {
+						return x - y;
+					}),
+				1,
+				_p3));
+	};
+};
+var _user$project$Axis$Lattice = F3(
+	function (a, b, c) {
+		return {neighbors: a, coordSystem: b, neighborCount: c};
+	});
+var _user$project$Axis$Wrap = function (a) {
+	return {ctor: 'Wrap', _0: a};
+};
+var _user$project$Axis$wrap = _user$project$Axis$Wrap;
+var _user$project$Axis$Bounded = function (a) {
+	return {ctor: 'Bounded', _0: a};
+};
+var _user$project$Axis$bounded = _user$project$Axis$Bounded;
+var _user$project$Axis$Infinite = {ctor: 'Infinite'};
+var _user$project$Axis$infinite = _user$project$Axis$Infinite;

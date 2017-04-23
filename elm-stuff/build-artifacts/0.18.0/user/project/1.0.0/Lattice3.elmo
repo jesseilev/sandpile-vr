@@ -1,0 +1,47 @@
+var _user$project$Lattice3$neighbors = F2(
+	function (_p0, coordinates) {
+		var _p1 = _p0;
+		var _p4 = _p1._2;
+		var _p3 = _p1._1;
+		var _p2 = _p1._0;
+		return _elm_community$maybe_extra$Maybe_Extra$values(
+			A2(
+				_elm_lang$core$List$map,
+				F2(
+					function (x, y) {
+						return y(x);
+					})(coordinates),
+				{
+					ctor: '::',
+					_0: _user$project$Coordinates3$previousX(_p2),
+					_1: {
+						ctor: '::',
+						_0: _user$project$Coordinates3$previousY(_p3),
+						_1: {
+							ctor: '::',
+							_0: _user$project$Coordinates3$previousZ(_p4),
+							_1: {
+								ctor: '::',
+								_0: _user$project$Coordinates3$nextX(_p2),
+								_1: {
+									ctor: '::',
+									_0: _user$project$Coordinates3$nextY(_p3),
+									_1: {
+										ctor: '::',
+										_0: _user$project$Coordinates3$nextZ(_p4),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}));
+	});
+var _user$project$Lattice3$lattice = function (coordSystem) {
+	return {
+		neighbors: _user$project$Lattice3$neighbors(coordSystem),
+		neighborCount: 6,
+		coordSystem: coordSystem
+	};
+};
+var _user$project$Lattice3$space = _user$project$Lattice3$lattice(_user$project$Coordinates3$space);

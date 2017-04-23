@@ -1,0 +1,37 @@
+var _halfzebra$elm_aframe$AFrame_Animations$to = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'to', value);
+};
+var _halfzebra$elm_aframe$AFrame_Animations$repeat = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'repeat',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Animations$from = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'from', value);
+};
+var _halfzebra$elm_aframe$AFrame_Animations$fill = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'fill', value);
+};
+var _halfzebra$elm_aframe$AFrame_Animations$easing = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'easing', value);
+};
+var _halfzebra$elm_aframe$AFrame_Animations$dur = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'dur',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Animations$direction = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'direction', value);
+};
+var _halfzebra$elm_aframe$AFrame_Animations$begin = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'begin',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Animations$attribute_ = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'attribute', value);
+};
+var _halfzebra$elm_aframe$AFrame_Animations$animation = _elm_lang$html$Html$node('a-animation');

@@ -1,0 +1,2 @@
+var _halfzebra$elm_aframe$AFrame$entity = _elm_lang$html$Html$node('a-entity');
+var _halfzebra$elm_aframe$AFrame$scene = _elm_lang$html$Html$node('a-scene');

@@ -1,0 +1,112 @@
+var _user$project$Coordinates2$insertSecond = F2(
+	function (q, _p0) {
+		var _p1 = _p0;
+		return {ctor: '_Tuple2', _0: _p1._0, _1: q};
+	});
+var _user$project$Coordinates2$insertFirst = F2(
+	function (p, _p2) {
+		var _p3 = _p2;
+		return {ctor: '_Tuple2', _0: p, _1: _p3._1};
+	});
+var _user$project$Coordinates2$updateCoord = F5(
+	function (axisFunc, tupleGet, tupleInsert, axis, coordinates) {
+		return A2(
+			_elm_lang$core$Maybe$map,
+			A2(_elm_lang$core$Basics$flip, tupleInsert, coordinates),
+			A2(
+				axisFunc,
+				axis,
+				tupleGet(coordinates)));
+	});
+var _user$project$Coordinates2$nextY = A3(_user$project$Coordinates2$updateCoord, _user$project$Axis$next, _elm_lang$core$Tuple$second, _user$project$Coordinates2$insertSecond);
+var _user$project$Coordinates2$nextX = A3(_user$project$Coordinates2$updateCoord, _user$project$Axis$next, _elm_lang$core$Tuple$first, _user$project$Coordinates2$insertFirst);
+var _user$project$Coordinates2$previousY = A3(_user$project$Coordinates2$updateCoord, _user$project$Axis$previous, _elm_lang$core$Tuple$second, _user$project$Coordinates2$insertSecond);
+var _user$project$Coordinates2$previousX = A3(_user$project$Coordinates2$updateCoord, _user$project$Axis$previous, _elm_lang$core$Tuple$first, _user$project$Coordinates2$insertFirst);
+var _user$project$Coordinates2$scale = function (n) {
+	return function (_p4) {
+		return A2(
+			_elm_lang$core$Tuple$mapSecond,
+			F2(
+				function (x, y) {
+					return x * y;
+				})(n),
+			A2(
+				_elm_lang$core$Tuple$mapFirst,
+				F2(
+					function (x, y) {
+						return x * y;
+					})(n),
+				_p4));
+	};
+};
+var _user$project$Coordinates2$toFloats = function (_p5) {
+	var _p6 = _p5;
+	return {
+		ctor: '_Tuple2',
+		_0: _elm_lang$core$Basics$toFloat(_p6._0),
+		_1: _elm_lang$core$Basics$toFloat(_p6._1)
+	};
+};
+var _user$project$Coordinates2$coordinates = F2(
+	function (v0, v1) {
+		return {ctor: '_Tuple2', _0: v0, _1: v1};
+	});
+var _user$project$Coordinates2$origin = A2(_user$project$Coordinates2$coordinates, 0, 0);
+var _user$project$Coordinates2$System = F2(
+	function (a, b) {
+		return {ctor: 'System', _0: a, _1: b};
+	});
+var _user$project$Coordinates2$system = _user$project$Coordinates2$System;
+var _user$project$Coordinates2$plane = A2(_user$project$Coordinates2$system, _user$project$Axis$infinite, _user$project$Axis$infinite);
+var _user$project$Coordinates2$rect = F2(
+	function (width, height) {
+		return A2(
+			_user$project$Coordinates2$system,
+			_user$project$Axis$bounded(width),
+			_user$project$Axis$bounded(height));
+	});
+var _user$project$Coordinates2$donut = F2(
+	function (width, height) {
+		return A2(
+			_user$project$Coordinates2$system,
+			_user$project$Axis$wrap(width),
+			_user$project$Axis$wrap(height));
+	});
+var _user$project$Coordinates2$tubeV = function (width) {
+	return A2(
+		_user$project$Coordinates2$system,
+		_user$project$Axis$wrap(width),
+		_user$project$Axis$infinite);
+};
+var _user$project$Coordinates2$tubeH = function (height) {
+	return A2(
+		_user$project$Coordinates2$system,
+		_user$project$Axis$infinite,
+		_user$project$Axis$wrap(height));
+};
+var _user$project$Coordinates2$cylinderV = F2(
+	function (width, height) {
+		return A2(
+			_user$project$Coordinates2$system,
+			_user$project$Axis$wrap(width),
+			_user$project$Axis$bounded(height));
+	});
+var _user$project$Coordinates2$cylinderH = F2(
+	function (width, height) {
+		return A2(
+			_user$project$Coordinates2$system,
+			_user$project$Axis$bounded(width),
+			_user$project$Axis$wrap(height));
+	});
+var _user$project$Coordinates2$stripV = function (width) {
+	return A2(
+		_user$project$Coordinates2$system,
+		_user$project$Axis$bounded(width),
+		_user$project$Axis$infinite);
+};
+var _user$project$Coordinates2$stripH = function (height) {
+	return A2(
+		_user$project$Coordinates2$system,
+		_user$project$Axis$infinite,
+		_user$project$Axis$bounded(height));
+};

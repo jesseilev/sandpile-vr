@@ -1,0 +1,70 @@
+var _user$project$Coordinates3$insertThird = F2(
+	function (r, _p0) {
+		var _p1 = _p0;
+		return {ctor: '_Tuple3', _0: _p1._0, _1: _p1._1, _2: r};
+	});
+var _user$project$Coordinates3$insertSecond = F2(
+	function (q, _p2) {
+		var _p3 = _p2;
+		return {ctor: '_Tuple3', _0: _p3._0, _1: q, _2: _p3._2};
+	});
+var _user$project$Coordinates3$insertFirst = F2(
+	function (p, _p4) {
+		var _p5 = _p4;
+		return {ctor: '_Tuple3', _0: p, _1: _p5._1, _2: _p5._2};
+	});
+var _user$project$Coordinates3$allCoordsInRange = F6(
+	function (xmin, xmax, ymin, ymax, zmin, zmax) {
+		return A4(
+			_elm_community$list_extra$List_Extra$lift3,
+			F3(
+				function (v0, v1, v2) {
+					return {ctor: '_Tuple3', _0: v0, _1: v1, _2: v2};
+				}),
+			A2(_elm_lang$core$List$range, xmin, xmax),
+			A2(_elm_lang$core$List$range, ymin, ymax),
+			A2(_elm_lang$core$List$range, zmin, zmax));
+	});
+var _user$project$Coordinates3$updateCoord = F5(
+	function (axisFunc, tupleGet, tupleInsert, axis, coordinates) {
+		return A2(
+			_elm_lang$core$Maybe$map,
+			A2(_elm_lang$core$Basics$flip, tupleInsert, coordinates),
+			A2(
+				axisFunc,
+				axis,
+				tupleGet(coordinates)));
+	});
+var _user$project$Coordinates3$nextZ = A3(_user$project$Coordinates3$updateCoord, _user$project$Axis$next, _Fresheyeball$elm_tuple_extra$Tuple3$third, _user$project$Coordinates3$insertThird);
+var _user$project$Coordinates3$nextY = A3(_user$project$Coordinates3$updateCoord, _user$project$Axis$next, _Fresheyeball$elm_tuple_extra$Tuple3$second, _user$project$Coordinates3$insertSecond);
+var _user$project$Coordinates3$nextX = A3(_user$project$Coordinates3$updateCoord, _user$project$Axis$next, _Fresheyeball$elm_tuple_extra$Tuple3$first, _user$project$Coordinates3$insertFirst);
+var _user$project$Coordinates3$previousZ = A3(_user$project$Coordinates3$updateCoord, _user$project$Axis$previous, _Fresheyeball$elm_tuple_extra$Tuple3$third, _user$project$Coordinates3$insertThird);
+var _user$project$Coordinates3$previousY = A3(_user$project$Coordinates3$updateCoord, _user$project$Axis$previous, _Fresheyeball$elm_tuple_extra$Tuple3$second, _user$project$Coordinates3$insertSecond);
+var _user$project$Coordinates3$previousX = A3(_user$project$Coordinates3$updateCoord, _user$project$Axis$previous, _Fresheyeball$elm_tuple_extra$Tuple3$first, _user$project$Coordinates3$insertFirst);
+var _user$project$Coordinates3$toFloats = function (_p6) {
+	var _p7 = _p6;
+	return {
+		ctor: '_Tuple3',
+		_0: _elm_lang$core$Basics$toFloat(_p7._0),
+		_1: _elm_lang$core$Basics$toFloat(_p7._1),
+		_2: _elm_lang$core$Basics$toFloat(_p7._2)
+	};
+};
+var _user$project$Coordinates3$coordinates = F3(
+	function (v0, v1, v2) {
+		return {ctor: '_Tuple3', _0: v0, _1: v1, _2: v2};
+	});
+var _user$project$Coordinates3$System = F3(
+	function (a, b, c) {
+		return {ctor: 'System', _0: a, _1: b, _2: c};
+	});
+var _user$project$Coordinates3$system = _user$project$Coordinates3$System;
+var _user$project$Coordinates3$space = A3(_user$project$Coordinates3$system, _user$project$Axis$infinite, _user$project$Axis$infinite, _user$project$Axis$infinite);
+var _user$project$Coordinates3$box = F3(
+	function (width, height, depth) {
+		return A3(
+			_user$project$Coordinates3$system,
+			_user$project$Axis$bounded(width),
+			_user$project$Axis$bounded(height),
+			_user$project$Axis$bounded(depth));
+	});

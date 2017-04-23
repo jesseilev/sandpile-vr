@@ -1,0 +1,54 @@
+var _user$project$Lattice2$neighbors = F2(
+	function (_p0, coordinates) {
+		var _p1 = _p0;
+		var _p3 = _p1._1;
+		var _p2 = _p1._0;
+		return _elm_community$maybe_extra$Maybe_Extra$values(
+			A2(
+				_elm_lang$core$List$map,
+				F2(
+					function (x, y) {
+						return y(x);
+					})(coordinates),
+				{
+					ctor: '::',
+					_0: _user$project$Coordinates2$previousX(_p2),
+					_1: {
+						ctor: '::',
+						_0: _user$project$Coordinates2$previousY(_p3),
+						_1: {
+							ctor: '::',
+							_0: _user$project$Coordinates2$nextX(_p2),
+							_1: {
+								ctor: '::',
+								_0: _user$project$Coordinates2$nextY(_p3),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}));
+	});
+var _user$project$Lattice2$lattice = function (coordSystem) {
+	return {
+		neighbors: _user$project$Lattice2$neighbors(coordSystem),
+		neighborCount: 4,
+		coordSystem: coordSystem
+	};
+};
+var _user$project$Lattice2$plane = _user$project$Lattice2$lattice(_user$project$Coordinates2$plane);
+var _user$project$Lattice2$rect = function (width) {
+	return function (_p4) {
+		return _user$project$Lattice2$lattice(
+			A2(_user$project$Coordinates2$rect, width, _p4));
+	};
+};
+var _user$project$Lattice2$donut = function (width) {
+	return function (_p5) {
+		return _user$project$Lattice2$lattice(
+			A2(_user$project$Coordinates2$donut, width, _p5));
+	};
+};
+var _user$project$Lattice2$tubeV = function (_p6) {
+	return _user$project$Lattice2$lattice(
+		_user$project$Coordinates2$tubeV(_p6));
+};

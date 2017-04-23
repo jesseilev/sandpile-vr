@@ -1,0 +1,237 @@
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$vrModeUi = function (enabled) {
+	var value = function () {
+		var _p0 = enabled;
+		if (_p0 === true) {
+			return 'true';
+		} else {
+			return 'false';
+		}
+	}();
+	var attribstring = A2(_elm_lang$core$Basics_ops['++'], 'enabled: ', value);
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'vm-mode-ui', attribstring);
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$type_ = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'type',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$intensity = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'intensity',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$groundColor = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'ground-color',
+		_eskimoblood$elm_color_extra$Color_Convert$colorToHex(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$exponent = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'exponent',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$distance = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'distance',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$decay = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'decay',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$angle = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'angle',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$segmentsRadial = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'segments-radial',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$depth = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'depth',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$width = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'width',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$height = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'height',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$rotation = F3(
+	function (x, y, z) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'rotation',
+			_elm_lang$core$String$concat(
+				A2(
+					_elm_lang$core$List$intersperse,
+					' ',
+					A2(
+						_elm_lang$core$List$map,
+						_elm_lang$core$Basics$toString,
+						{
+							ctor: '::',
+							_0: x,
+							_1: {
+								ctor: '::',
+								_0: y,
+								_1: {
+									ctor: '::',
+									_0: z,
+									_1: {ctor: '[]'}
+								}
+							}
+						}))));
+	});
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$scale = F3(
+	function (x, y, z) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'scale',
+			_elm_lang$core$String$concat(
+				A2(
+					_elm_lang$core$List$intersperse,
+					' ',
+					A2(
+						_elm_lang$core$List$map,
+						_elm_lang$core$Basics$toString,
+						{
+							ctor: '::',
+							_0: x,
+							_1: {
+								ctor: '::',
+								_0: y,
+								_1: {
+									ctor: '::',
+									_0: z,
+									_1: {ctor: '[]'}
+								}
+							}
+						}))));
+	});
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$position = F3(
+	function (x, y, z) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'position',
+			_elm_lang$core$String$concat(
+				A2(
+					_elm_lang$core$List$intersperse,
+					' ',
+					A2(
+						_elm_lang$core$List$map,
+						_elm_lang$core$Basics$toString,
+						{
+							ctor: '::',
+							_0: x,
+							_1: {
+								ctor: '::',
+								_0: y,
+								_1: {
+									ctor: '::',
+									_0: z,
+									_1: {ctor: '[]'}
+								}
+							}
+						}))));
+	});
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$radiusBottom = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'radius-bottom',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$radiusTop = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'radius-top',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$radius = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'radius',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$transparent = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'transparent',
+		_elm_lang$core$String$toLower(
+			_elm_lang$core$Basics$toString(value)));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$translate = F3(
+	function (x, y, z) {
+		return A2(
+			_elm_lang$html$Html_Attributes$attribute,
+			'translate',
+			_elm_lang$core$String$concat(
+				A2(
+					_elm_lang$core$List$intersperse,
+					' ',
+					A2(
+						_elm_lang$core$List$map,
+						_elm_lang$core$Basics$toString,
+						{
+							ctor: '::',
+							_0: x,
+							_1: {
+								ctor: '::',
+								_0: y,
+								_1: {
+									ctor: '::',
+									_0: z,
+									_1: {ctor: '[]'}
+								}
+							}
+						}))));
+	});
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$roughness = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'roughness',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$opacity = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'opacity',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$src = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'src', value);
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$shader = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'shader', value);
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$metalness = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'metalness',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Attributes$color = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'color',
+		_eskimoblood$elm_color_extra$Color_Convert$colorToHex(value));
+};

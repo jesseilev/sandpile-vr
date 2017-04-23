@@ -1,0 +1,20 @@
+var _halfzebra$elm_aframe$AFrame_Primitives_Cursor$timeout = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'timeout',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Cursor$maxDistance = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'max-distance',
+		_elm_lang$core$Basics$toString(value));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Cursor$fuse = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'fuse',
+		_elm_lang$core$String$toLower(
+			_elm_lang$core$Basics$toString(value)));
+};
+var _halfzebra$elm_aframe$AFrame_Primitives_Cursor$cursor = _elm_lang$html$Html$node('a-cursor');
