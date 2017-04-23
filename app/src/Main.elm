@@ -10,7 +10,10 @@ import AFrame exposing (..)
 import AFrame.Primitives.Attributes exposing (..)
 import AFrame.Primitives exposing (..)
 import AFrame.Primitives.Camera exposing (..)
+import AFrame.Primitives.Cursor as Cursor
+import AFrame.Animations as Ani
 import List.Extra as ListEx
+import Maybe.Extra as MaybeEx
 
 import Sandpile exposing (Sandpile)
 import Coordinates2 as Coord2
@@ -19,15 +22,22 @@ import Lattice2
 import Lattice3
 
 
+-- PORTS
+
+
 -- port for telling Aframe to enter fullscreen VR mode
 port enterVr : () ->  Cmd msgType
+
+
+
+-- MODEL
 
 
 type alias Model =
     { sandpile : Sandpile Coord3.System Coordinates
     , playback : Playback
     , dripLocations : List Coordinates
-    , clicks : Int
+    , menuLocation : Maybe Coordinates
     }
 
 
@@ -51,9 +61,13 @@ init =
     , dripLocations =
         [ Coord3.coordinates 0 0 0
         ]
-    , clicks = 0
+    , menuLocation = Nothing
     }
         ! []
+
+
+
+-- UPDATE
 
 
 type Msg
@@ -62,6 +76,7 @@ type Msg
     | ToppleSettle
     | TogglePlayback
     | ClickEnterVr
+    | ClickCell Coord3.Coordinates
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -79,25 +94,40 @@ update msg model =
             updateSandpile Sandpile.toppleSettle model ! []
 
         TogglePlayback ->
-            { model | playback = if model.playback == Play then Pause else Play } ! []
+            { model |
+                playback =
+                    if model.playback == Pause then Play else Pause
+            } ! []
 
         ClickEnterVr ->
             (model, enterVr ())
+
+        ClickCell coords ->
+            -- updateSandpile (Sandpile.increment coords) model ! []
+            { model | menuLocation = Just coords } ! []
 
 
 updateSandpile updateS model =
     { model | sandpile = updateS model.sandpile }
 
 
+
+-- SUBSCRIPTIONS
+
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    if model.playback == Play then
-        Sub.batch
-            [ Time.every (0.3 * Time.second) (\_ -> DropGrain)
-            , Time.every (50 * Time.millisecond) (\_ -> ToppleStep)
-            ]
-    else
-        Sub.none
+    case (model.playback, Sandpile.isStable model.sandpile) of
+        (Play, True) ->
+            Time.every (250 * Time.millisecond ) (\_ -> DropGrain)
+        (_, False) ->
+            Time.every (250 * Time.millisecond) (\_ -> ToppleStep)
+        _ ->
+            Sub.none
+
+
+
+-- VIEW
 
 
 view : Model -> Html Msg
@@ -120,14 +150,58 @@ viewSandpile model =
         scene
             [ vrModeUi False ]
             ( cells ++
-                [ camera [ position 12 12 12 ] []
+                [ viewCamera model
+                , viewMenu model
                 , sky [ color skyColor ] []
                 ]
             )
 
 
-skyColor =
-    Color.greyscale 0.75
+viewMenu model =
+    case model.menuLocation of
+        Nothing ->
+            entity [] []
+
+        Just cellCoords ->
+            let (x,y,z) = cellCoords |> toSphereCoords in
+            plane
+                [ position x y z
+                , width 1
+                , height 1
+                , color yellow
+                ] []
+
+
+viewCamera model =
+    camera
+        [ position 12 12 12 ]
+        [ Cursor.cursor
+            [ Cursor.fuse True
+            -- , HtmlAttr.attribute "fuse-timeout" "1500"
+            , position 0 0 -1
+            , HtmlAttr.attribute "max-distance" "2"
+            , color white -- (rgba 0 0 0 0)
+            -- , HtmlAttr.attribute "geometry" "radiusInner: 0; radiusOuter: 0"
+            ]
+            [ Ani.animation
+                [ HtmlAttr.attribute "begin" "cursor-fusing"
+                , Ani.attribute_ "scale"
+                , Ani.from "1 1 1"
+                , Ani.to "0 0 0"
+                , Ani.dur 1500
+                , Ani.fill "both"
+                ] []
+            , Ani.animation
+                [ HtmlAttr.attribute "begin" "click"
+                , Ani.attribute_ "scale"
+                , Ani.from "0 0 0"
+                , Ani.to "4 4 4"
+                , Ani.dur 250
+                , Ani.fill "none"
+                ] []
+            --, cylinder [ radius 0.005, height 0.02, color yellow ] []
+            ]
+        ]
 
 
 viewCell : Model -> Coordinates -> Html Msg
@@ -137,46 +211,25 @@ viewCell model coordinates =
             Sandpile.get coordinates model.sandpile
                 |> Maybe.withDefault 0
 
-        r =
-            1.0
-
-        spacing =
-            20.0
-
-        scaleCoord c =
-            c * r * spacing / 2.0
-
         (x,y,z) =
-            coordinates
-                |> Coord3.toFloats
-                |> (\(x,y,z) -> (scaleCoord x, scaleCoord y, scaleCoord z))
+            coordinates |> toSphereCoords
 
         wire rotationAttr =
-            cylinder [ radius 0.05, height spacing, color grey, rotationAttr ] []
+            cylinder [ radius 0.05, height sphereSpacing, color grey, rotationAttr ] []
     in
         sphere
-            [ radius r
+            [ radius sphereRadius
             , position x y z
             , color (colorFromGrainCount grainCount)
             , opacity <| opacityFromGrainCount
                 model.sandpile.lattice.neighborCount grainCount
+            , Events.onClick (ClickCell coordinates)
             ]
             []
             -- [ wire (rotation 0 0 0)
             -- , wire (rotation 90 0 0)
             -- , wire (rotation 0 0 90)
             -- ]
-
-
-colorFromGrainCount grainCount =
-    [ white, yellow, orange, red, purple, blue, darkCharcoal ]
-        |> List.reverse
-        |> ListEx.getAt grainCount
-        |> Maybe.withDefault white
-
-
-opacityFromGrainCount neighborCount grainCount =
-    (toFloat grainCount + 1) / (toFloat neighborCount + 1)
 
 
 viewControls : Model -> Html Msg
@@ -198,6 +251,43 @@ viewButton text onClickMsg isDisabled =
     Html.button
         [ Events.onClick onClickMsg, HtmlAttr.disabled isDisabled ]
         [ Html.text text ]
+
+
+
+-- VIEW HELPERS
+
+
+skyColor =
+    Color.greyscale 0.75
+
+
+sphereSpacing =
+    20
+
+
+sphereRadius =
+    1
+
+
+toSphereCoords (x,y,z) =
+    let scaleVal v = toFloat v * sphereRadius * sphereSpacing / 2 in
+    (scaleVal x, scaleVal y, scaleVal z)
+
+
+
+colorFromGrainCount grainCount =
+    [ white, yellow, orange, red, purple, blue, darkCharcoal ]
+        |> List.reverse
+        |> ListEx.getAt grainCount
+        |> Maybe.withDefault white
+
+
+opacityFromGrainCount neighborCount grainCount =
+    (toFloat grainCount + 1) / (toFloat neighborCount + 1)
+
+
+
+-- MAIN
 
 
 main : Program Never Model Msg
