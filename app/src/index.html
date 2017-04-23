@@ -10,24 +10,23 @@
 </head>
 <body>
 
-    <!-- <script>
-        var Elm = require( './Main' );
-        console.log("_________________");
-        console.log(Elm);
-        Elm.ports.enterVr.subscribe(function () {
-            console.log("you clicked Enter VR!");
-
-            var scene = document.querySelector('a-scene');
-            if (scene.hasLoaded) {
-               scene.enterVR();
-            } else {
-               scene.addEventListener('loaded', function () {
-                   setTimeout(function () {
-                       scene.enterVR();
-                   }, 1000);
-               });
+    <script>
+        // window.onload(function() {
+        setTimeout(function() {
+            console.log("blah");
+            document.getElementById("enter-vr").onclick = function() {
+                var scene = document.querySelector('a-scene');
+                if (scene.hasLoaded) {
+                   scene.enterVR();
+                } else {
+                   scene.addEventListener('loaded', function () {
+                       setTimeout(function () {
+                           scene.enterVR();
+                       }, 1000);
+                   });
+                };
             };
-        });
-    </script> -->
+        }, 1000);
+    </script>
 </body>
 </html>

@@ -243,7 +243,11 @@ viewControls model =
             (model.playback == Play || Sandpile.isStable model.sandpile)
         , viewButton "Settle" ToppleSettle
             (model.playback == Play || Sandpile.isStable model.sandpile)
-        , viewButton "Enter VR!" ClickEnterVr False
+        , Html.button
+            [ Events.onClick ClickEnterVr
+            , HtmlAttr.id "enter-vr"
+            ]
+            [ Html.text "Enter VR Mode" ]
         ]
 
 
